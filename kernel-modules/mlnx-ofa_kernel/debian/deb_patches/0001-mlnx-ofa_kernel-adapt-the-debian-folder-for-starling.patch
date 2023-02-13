@@ -45,7 +45,7 @@ index 2ed05f9..ba886e2 100644
  Priority: optional
  Maintainer: Vladimir Sokolovsky <vlad@mellanox.com>
 -Build-Depends: debhelper (>= 8.0.0), autotools-dev, bzip2, dkms,
-+Build-Depends: debhelper (>= 8.0.0), autotools-dev, bzip2, dkms, linux@KERNEL_TYPE@-headers-5.10.0-6@KERNEL_TYPE@-amd64, linux@KERNEL_TYPE@-kbuild-5.10
++Build-Depends: debhelper (>= 8.0.0), autotools-dev, bzip2, dkms, linux@KERNEL_TYPE@-headers-5.10.0-6@KERNEL_TYPE@-arm64, linux@KERNEL_TYPE@-kbuild-5.10
  Standards-Version: 3.9.2
  Homepage: http://www.mellanox.com/page/products_dyn?product_family=26&mtag=linux_sw_drivers
  
@@ -251,7 +251,7 @@ index db99d8c..df4c725 100755
 +
 +#Here kernelver should be the one this package depends on,
 +#while "uname -r" got the building machine's os release number.
-+kheaders_name = $(shell ls /usr/src | grep linux@KERNEL_TYPE@-headers | grep amd64)
++kheaders_name = $(shell ls /usr/src | grep linux@KERNEL_TYPE@-headers | grep arm64)
 +kernelver = $(shell echo $(kheaders_name) | sed 's/linux@KERNEL_TYPE@-headers-//g')
 +
 +ifeq ($(WITH_MOD_SIGN),1)
