@@ -3,15 +3,15 @@ From: Li Zhou <li.zhou@windriver.com>
 Date: Thu, 14 Sep 2023 14:56:32 +0800
 Subject: [PATCH] kernel-rt: Add pkgs without abiname for image/headers
 
-Add 2 packages linux-rt-image-stx-amd64/linux-rt-headers-stx-amd64
+Add 2 packages linux-rt-image-stx-@BUILD_ARCH@/linux-rt-headers-stx-@BUILD_ARCH@
 which don't have abiname in their names. They depend on packages with
 abiname in names. Then we can use these 2 packages in anywhere
 that involves image/headers packages (e.g. Build-Depends/yaml config
 and so on). When the abiname is changed later in any kernel upgrading
 we don't need change above places involved any more.
 
-We don't use the linux-image-amd64/linux-headers-amd64 as Debian does
-because they are built by linux-signed-amd64, and coupled with signed
+We don't use the linux-image-@BUILD_ARCH@/linux-headers-@BUILD_ARCH@ as Debian does
+because they are built by linux-signed-@BUILD_ARCH@, and coupled with signed
 kernel. We don't follow Debian's signing process so we create 2 new
 packages which are coupled with unsigned image.
 
@@ -24,9 +24,10 @@ Add the 2 new packages in init control file of "debian" folder, or else
 a wrong build sequence ( OOT kernel modules are ahead of kernel ) will
 be determined because it is deduced from init control files of
 packages. The build error for kernel modules is like:
-"unsat-dependency: linux-rt-headers-stx-amd64:amd64"
+"unsat-dependency: linux-rt-headers-stx-@BUILD_ARCH@:@BUILD_ARCH@"
 
 Signed-off-by: Li Zhou <li.zhou@windriver.com>
+Signed-off-by: Jackie Huang <jackie.huang@windriver.com>
 ---
  debian/control                              | 16 ++++++++++++++++
  debian/rules.real                           |  4 ++--
@@ -42,20 +43,20 @@ index 7bd1395..c8c1c99 100644
   This is a dummy transitional package.  It can be safely removed.
  Build-Profiles: <!stage1 !pkg.linux.nokernel !pkg.linux.nometa>
  
-+Package: linux-rt-image-stx-amd64
-+Architecture: amd64
-+Depends: linux-rt-image-5.10.0-6-rt-amd64-unsigned (= ${binary:Version}), ${misc:Depends}
++Package: linux-rt-image-stx-@BUILD_ARCH@
++Architecture: @BUILD_ARCH@
++Depends: linux-rt-image-5.10.0-6-rt-@BUILD_ARCH@-unsigned (= ${binary:Version}), ${misc:Depends}
 +Description: RT Linux for 64-bit PCs (meta-package)
 + This package depends on the latest unsigned Linux kernel and modules for
 + use on PCs with AMD64, Intel 64 or VIA Nano processors.
 +Build-Profiles: <!stage1 !pkg.linux.nokernel>
 +
-+Package: linux-rt-headers-stx-amd64
-+Architecture: amd64
-+Depends: linux-rt-headers-5.10.0-6-rt-amd64 (= ${binary:Version}), ${misc:Depends}
-+Description: Header files for RT Linux amd64 configuration (meta-package)
++Package: linux-rt-headers-stx-@BUILD_ARCH@
++Architecture: @BUILD_ARCH@
++Depends: linux-rt-headers-5.10.0-6-rt-@BUILD_ARCH@ (= ${binary:Version}), ${misc:Depends}
++Description: Header files for RT Linux @BUILD_ARCH@ configuration (meta-package)
 + This package depends on the architecture-specific header files for the
-+ latest Linux kernel amd64 configuration.
++ latest Linux kernel @BUILD_ARCH@ configuration.
 +Build-Profiles: <!stage1 !pkg.linux.nokernel>
 +
 diff --git a/debian/rules.real b/debian/rules.real
@@ -89,21 +90,21 @@ index 8b45160..9fa3270 100644
  Description: Linux for multiprocessor 32-bit PA-RISC (dummy package)
   This is a dummy transitional package.  It can be safely removed.
 +
-+Package: linux-rt-image-stx-amd64
++Package: linux-rt-image-stx-@BUILD_ARCH@
 +Build-Profiles: <!stage1 !pkg.linux.nokernel>
-+Depends: linux-rt-image-@abiname@-amd64-unsigned (= ${binary:Version}), ${misc:Depends}
-+Architecture: amd64
++Depends: linux-rt-image-@abiname@-@BUILD_ARCH@-unsigned (= ${binary:Version}), ${misc:Depends}
++Architecture: @BUILD_ARCH@
 +Description: RT Linux for 64-bit PCs (meta-package)
 + This package depends on the latest unsigned Linux kernel and modules
 + for use on PCs with AMD64, Intel 64 or VIA Nano processors.
 +
-+Package: linux-rt-headers-stx-amd64
++Package: linux-rt-headers-stx-@BUILD_ARCH@
 +Build-Profiles: <!stage1 !pkg.linux.nokernel>
-+Depends: linux-rt-headers-@abiname@-amd64 (= ${binary:Version}), ${misc:Depends}
-+Architecture: amd64
-+Description: Header files for RT Linux amd64 configuration (meta-package)
++Depends: linux-rt-headers-@abiname@-@BUILD_ARCH@ (= ${binary:Version}), ${misc:Depends}
++Architecture: @BUILD_ARCH@
++Description: Header files for RT Linux @BUILD_ARCH@ configuration (meta-package)
 + This package depends on the architecture-specific header files for the latest
-+ Linux kernel amd64 configuration.
++ Linux kernel @BUILD_ARCH@ configuration.
 diff --git a/debian/templates/control.tools-versioned.in b/debian/templates/control.tools-versioned.in
 index 8d78c9d..232efc1 100644
 --- a/debian/templates/control.tools-versioned.in
