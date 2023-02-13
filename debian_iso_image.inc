@@ -1,8 +1,8 @@
 # List of packages to be included/installed in ISO
 
 # bnxt_en - Broadcom kernel modules
-bnxt-en
-bnxt-en-rt
+#bnxt-en
+#bnxt-en-rt
 
 #intel-i40e
 i40e
@@ -21,16 +21,16 @@ iavf-cvl-4.10
 iavf-cvl-4.10-rt
 
 #intel-ice
-ice
-ice-rt
-ice-cvl-2.54
-ice-cvl-2.54-rt
-ice-cvl-4.10
-ice-cvl-4.10-rt
-
+#ice
+#ice-rt
+#ice-cvl-2.54
+#ice-cvl-2.54-rt
+#ice-cvl-4.10
+#ice-cvl-4.10-rt
+#
 # Marvell kernel modules
-octeon-ep
-octeon-ep-rt
+#octeon-ep
+#octeon-ep-rt
 
 #intel-igb_uio
 igb-uio
@@ -40,8 +40,8 @@ igb-uio-rt
 initramfs-trigger
 
 # Intel Quartzville Linux Driver
-iqvlinux
-iqvlinux-rt
+#iqvlinux
+#iqvlinux-rt
 
 #intel-opae-fpgaa
 kmod-opae-fpga-driver
@@ -55,19 +55,19 @@ libbnxt-re
 #hyperv-daemons  # not used
 #libcpupower-dev  # not used
 #libcpupower1  # not used
-linux-compiler-gcc-10-x86
+#linux-compiler-gcc-10-x86
 #linux-config-5.10  # not used
 #linux-cpupower  # not used
-linux-headers-5.10.0-6-amd64
-linux-rt-headers-5.10.0-6-rt-amd64
+linux-headers-5.10.0-6-arm64
+linux-rt-headers-5.10.0-6-rt-arm64
 linux-headers-5.10.0-6-common
 linux-rt-headers-5.10.0-6-rt-common
-#linux-image-5.10.0-6-amd64-dbg # not used
-#linux-rt-image-5.10.0-6-rt-amd64-dbg # not used
-linux-image-5.10.0-6-amd64-unsigned
-linux-rt-image-5.10.0-6-rt-amd64-unsigned
-#linux-image-amd64-dbg  # not used
-#linux-image-amd64-signed-template  # not used
+#linux-image-5.10.0-6-arm64-dbg # not used
+#linux-rt-image-5.10.0-6-rt-arm64-dbg # not used
+linux-image-5.10.0-6-arm64-unsigned
+linux-rt-image-5.10.0-6-rt-arm64-unsigned
+#linux-image-arm64-dbg  # not used
+#linux-image-arm64-signed-template  # not used
 linux-kbuild-5.10
 linux-rt-kbuild-5.10
 linux-libc-dev
@@ -86,8 +86,8 @@ mlnx-ofed-kernel-modules-rt
 mlnx-ofed-kernel-utils
 
 #qat17
-qat1.7.l
-qat1.7.l-rt
+#qat1.7.l
+#qat1.7.l-rt
 
 #rdma-core
 ibacm
