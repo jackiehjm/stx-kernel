@@ -1,0 +1,40 @@
+From f89059c8893eaeb5da50f78cf2a3338137e86192 Mon Sep 17 00:00:00 2001
+From: Jackie Huang <jackie.huang@windriver.com>
+Date: Wed, 29 Mar 2023 08:30:27 -0400
+Subject: [PATCH] kbuild: Fix recordmcount dependency for OOT modules
+
+This debian patch is required, or all OOT modules failed to build 
+for ARM64.
+
+Here is the original patch header:
+
+  """
+  From: Ben Hutchings <ben@decadent.org.uk>
+  Subject: kbuild: Fix recordmcount dependency for OOT modules
+  Date: Mon, 08 Sep 2014 18:31:24 +0100
+  Forwarded: no
+
+  We never rebuild anything in-tree when building an out-of-tree
+  modules, so external modules should not depend on the recordmcount
+  sources.
+  """
+
+Signed-off-by: Jackie Huang <jackie.huang@windriver.com>
+---
+ debian/patches/series | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/debian/patches/series b/debian/patches/series
+index d91da94..160c200 100644
+--- a/debian/patches/series
++++ b/debian/patches/series
+@@ -11,3 +11,6 @@ debian/kbuild-look-for-module.lds-under-arch-directory-too.patch
+ # Lockdown missing pieces
+ features/all/lockdown/efi-add-an-efi_secure_boot-flag-to-indicate-secure-b.patch
+ features/all/lockdown/efi-lock-down-the-kernel-if-booted-in-secure-boot-mo.patch
++
++# Tools bug fixes
++bugfix/all/kbuild-fix-recordmcount-dependency.patch
+-- 
+2.30.2
+
