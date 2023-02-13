@@ -49,17 +49,17 @@ libbnxt-re
 #linux-config-5.10  # not used
 #linux-cpupower  # not used
 linux-headers-5.10.0-6-arm64
-linux-rt-headers-5.10.0-6-rt-arm64
+#linux-rt-headers-5.10.0-6-rt-arm64
 linux-headers-5.10.0-6-common
-linux-rt-headers-5.10.0-6-rt-common
+#linux-rt-headers-5.10.0-6-rt-common
 #linux-image-5.10.0-6-arm64-dbg # not used
 #linux-rt-image-5.10.0-6-rt-arm64-dbg # not used
 linux-image-5.10.0-6-arm64-unsigned
-linux-rt-image-5.10.0-6-rt-arm64-unsigned
+#linux-rt-image-5.10.0-6-rt-arm64-unsigned
 #linux-image-arm64-dbg  # not used
 #linux-image-arm64-signed-template  # not used
 linux-kbuild-5.10
-linux-rt-kbuild-5.10
+#linux-rt-kbuild-5.10
 linux-libc-dev
 #linux-perf-5.10-dbgsym  # not used
 linux-perf-5.10
