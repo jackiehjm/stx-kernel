@@ -45,7 +45,7 @@ libbnxt-re
 #hyperv-daemons  # not used
 #libcpupower-dev  # not used
 #libcpupower1  # not used
-linux-compiler-gcc-10-x86
+#linux-compiler-gcc-10-x86
 #linux-config-5.10  # not used
 #linux-cpupower  # not used
 linux-headers-5.10.0-6-arm64
