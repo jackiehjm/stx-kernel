@@ -4,4 +4,5 @@ debname: initramfs-trigger
 src_path: src
 revision:
   dist: $STX_DIST
-  PKG_GITREVCOUNT:
+  PKG_GITREVCOUNT: true
+  stx-patch: 1
