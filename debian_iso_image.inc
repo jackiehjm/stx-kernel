@@ -71,9 +71,9 @@ linux-perf-5.10
 #usbip  # not used
 
 #mlnx-ofa_kernel
-#mlnx-ofed-kernel-modules
+mlnx-ofed-kernel-modules
 #mlnx-ofed-kernel-modules-rt
-#mlnx-ofed-kernel-utils
+mlnx-ofed-kernel-utils
 
 #qat17
 #qat1.7.l
