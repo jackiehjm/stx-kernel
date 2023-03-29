@@ -8,4 +8,6 @@ dl_path:
   sha256sum: db59d21f5af7c0bebf361d61c8debce3021ac40e10133bec24e7e95987ea0678
 revision:
   dist: $STX_DIST
-  PKG_GITREVCOUNT: true
+  GITREVCOUNT:
+    BASE_SRCREV: 94289e7b518e90bceb77ff7c6ed4640f0c188e7f
+    SRC_DIR: ${MY_REPO}/stx/kernel/kernel-modules/intel-i40e-cvl-4.10

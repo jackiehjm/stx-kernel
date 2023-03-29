@@ -8,4 +8,6 @@ dl_path:
   sha256sum: 62e6f02a9d6fe3546f83f178dbf50d7a9ddf6816549176a926fb1b846afd013b
 revision:
   dist: $STX_DIST
-  PKG_GITREVCOUNT: true
+  GITREVCOUNT:
+    BASE_SRCREV: 94289e7b518e90bceb77ff7c6ed4640f0c188e7f
+    SRC_DIR: ${MY_REPO}/stx/kernel/kernel-modules/intel-ice-cvl-4.10
