@@ -21,3 +21,4 @@
 0021-config-don-t-unset-CONFIG_EFIVAR_FS.patch
 0022-Upgrade-5.10-kernel-to-5.10.162.patch
 0023-debian-config-fix-for-arm64.patch
+0024-kbuild-fix-recordmcount-dependency.patch
