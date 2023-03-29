@@ -24,3 +24,4 @@
 0024-Fix-badly-formatted-trailer-line.patch
 0025-Upgrade-5.10-kernel-to-5.10.177.patch
 0101-linux-rt-fix-for-arm64.patch
+0102-kbuild-fix-recordmcount-dependency.patch
