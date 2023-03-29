@@ -25,3 +25,4 @@
 0025-Disable-unprivileged-eBPF-by-default.patch
 0026-Upgrade-5.10-kernel-to-5.10.180.patch
 0101-debian-config-fix-for-arm64.patch
+0102-kbuild-fix-recordmcount-dependency.patch
