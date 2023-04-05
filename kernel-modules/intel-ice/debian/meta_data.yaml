@@ -17,4 +17,3 @@ dl_files:
 revision:
   dist: $STX_DIST
   PKG_GITREVCOUNT: true
-  stx-patch: 1
