@@ -1,6 +1,6 @@
-From 9a9504632c92e954103b7fdd7b59064a94d9ee29 Mon Sep 17 00:00:00 2001
-From: Jiping Ma <jiping.ma2@windriver.com>
-Date: Wed, 23 Mar 2022 22:59:40 -0700
+From 7280556901ed6edac111bd4be32e6ee33484e5b6 Mon Sep 17 00:00:00 2001
+From: Jackie Huang <jackie.huang@windriver.com>
+Date: Mon, 10 Apr 2023 03:35:24 -0400
 Subject: [PATCH] mlnx-ofa_kernel: adapt the debian folder for starlingX
 
 Adapt the upstream debian folder for starlingX:
@@ -19,6 +19,9 @@ Signed-off-by: Li Zhou <li.zhou@windriver.com>
 prerm files for rt build.]
 Signed-off-by: Jiping Ma <jiping.ma2@windriver.com>
 Signed-off-by: Yue Tao <Yue.Tao@windriver.com>
+
+[rebase for 5.8]
+Signed-off-by: Jackie Huang <jackie.huang@windriver.com>
 ---
  debian/control                              | 21 +++-------
  debian/extra/mlnx.conf                      | 19 +++++++++
@@ -37,7 +40,7 @@ Signed-off-by: Yue Tao <Yue.Tao@windriver.com>
  create mode 100755 debian/mlnx-ofed-kernel-utils-rt.prerm
 
 diff --git a/debian/control b/debian/control
-index 2ed05f9..ba886e2 100644
+index 0033660..82ead56 100644
 --- a/debian/control
 +++ b/debian/control
 @@ -2,7 +2,7 @@ Source: mlnx-ofed-kernel
@@ -56,7 +59,7 @@ index 2ed05f9..ba886e2 100644
 -Package: mlnx-ofed-kernel-dkms
 -Section: kernel
 -Architecture: all
--Depends: dkms, make, ${misc:Depends}, coreutils, pciutils, grep, procps, module-init-tools | kmod, lsof, mlnx-ofed-kernel-utils,
+-Depends: dkms, ${misc:Depends}, mlnx-ofed-kernel-utils, libc6-dev,
 -Recommends: linux-headers-arm64 | linux-headers-powerpc | linux-headers-ppc64 | linux-headers-ppc64le | linux-headers-amd64 | linux-headers-generic | linux-headers
 -Provides: mlnx-rdma-rxe-dkms
 -Conflicts: mlnx-rdma-rxe-dkms
@@ -237,7 +240,7 @@ index 0000000..27f697b
 +
 +exit 0
 diff --git a/debian/rules b/debian/rules
-index db99d8c..df4c725 100755
+index 7e32e3c..92726d0 100755
 --- a/debian/rules
 +++ b/debian/rules
 @@ -17,8 +17,20 @@
@@ -289,7 +292,7 @@ index db99d8c..df4c725 100755
  endif
  
  mod_dev_dir = /usr/src/ofa_kernel/$(deb_arch)/$(kernelver)
-@@ -181,6 +192,9 @@ endif
+@@ -179,6 +190,9 @@ endif
  	install -m 0755 source/ofed_scripts/odp_stat.sh			debian/$(putils)/usr/sbin
  	install -m 0755 ofed_scripts/mlnx_bf_assign_ct_cores.sh		debian/$(putils)/usr/share/mlnx_ofed
  
@@ -300,5 +303,5 @@ index db99d8c..df4c725 100755
  
  
 -- 
-2.25.1
+2.30.2
 
