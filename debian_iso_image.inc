@@ -1,14 +1,14 @@
 # List of packages to be included/installed in ISO
 
 # bnxt_en - Broadcom kernel modules
-#bnxt-en
+bnxt-en
 #bnxt-en-rt
 
 #intel-i40e
-#i40e
+i40e
 #i40e-rt
-#i40e-cvl-2.54
-#i40e-cvl-2.54-rt
+i40e-cvl-2.54
+i40e-cvl-2.54-rt
 
 #intel-iavf
 #iavf
@@ -76,7 +76,7 @@ mlnx-ofed-kernel-modules
 mlnx-ofed-kernel-utils
 
 #qat17
-#qat1.7.l
+qat1.7.l
 #qat1.7.l-rt
 
 #rdma-core
