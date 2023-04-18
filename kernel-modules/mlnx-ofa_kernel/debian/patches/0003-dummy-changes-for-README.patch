@@ -1,0 +1,22 @@
+From 449749fdcf86be010fe43c229510a66764cafe72 Mon Sep 17 00:00:00 2001
+From: Jackie Huang <jackie.huang@windriver.com>
+Date: Tue, 18 Apr 2023 17:04:08 +0800
+Subject: [PATCH] dummy changes for README
+
+Signed-off-by: Jackie Huang <jackie.huang@windriver.com>
+---
+ README | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/README b/README
+index 1c297cd..667dc67 100644
+--- a/README
++++ b/README
+@@ -157,3 +157,4 @@ Submitting to Gerrit:
+ ---------------------
+ Please refer to
+ http://wiki.lab.mtl.com/tiki/tiki-index.php?page=Code+Review&structure=OFED-LE#Gerrit
++dummy change
+-- 
+2.30.2
+
