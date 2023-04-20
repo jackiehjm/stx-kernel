@@ -1,4 +1,4 @@
-From c41924f7bf26cef66ab1038e5723c56a3a070058 Mon Sep 17 00:00:00 2001
+From a3bd5917e96735c4cd2633f610e263acc83efd25 Mon Sep 17 00:00:00 2001
 From: Jiping Ma <jiping.ma2@windriver.com>
 Date: Mon, 11 Apr 2022 02:07:30 -0700
 Subject: [PATCH] mlnx-tools: Fix the build error.
@@ -26,15 +26,15 @@ Signed-off-by: Jiping Ma <jiping.ma2@windriver.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/debian/changelog b/debian/changelog
-index c49bb20..c9b4370 100644
+index 0a1dc57..c9b4370 100644
 --- a/debian/changelog
 +++ b/debian/changelog
 @@ -1,4 +1,4 @@
--mlnx-tools (5.2.0-OFED.5.5.1.0.3) UNRELEASED; urgency=medium
+-mlnx-tools (5.2.0-OFED.5.8.1.0.0) UNRELEASED; urgency=medium
 +mlnx-tools (5.2.0) UNRELEASED; urgency=medium
  
    * Switched to a MLNX_OFED branch
    * Native package
 -- 
-2.35.1
+2.34.1
 
