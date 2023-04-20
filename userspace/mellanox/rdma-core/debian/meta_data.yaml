@@ -1,12 +1,12 @@
 ---
-debver: 55mlnx37
+debver: 58mlnx43
 debname: rdma-core
 dl_path:
-  name: rdma-core-55mlnx37.tgz
+  name: rdma-core-58mlnx43.tgz
   url: "https://linux.mellanox.com/public/repo/mlnx_ofed/\
-    5.5-1.0.3.2/SRPMS/rdma-core-55mlnx37.tgz"
-  md5sum: 3ef7bc6e2e44029836c8731571cb219b
-  sha256sum: 865726dce11113b89d4563e5bc988dccf507d8f687ee6550dd2b0cede116465c
+    5.8-1.0.1.1/SRPMS/rdma-core-58mlnx43.tgz"
+  md5sum: 2027091bc991c699d767a7ee080ed915
+  sha256sum: 8a99e292268b1154984ec230c86db2767c48381aef77e34df927fada88b5d517
 revision:
   dist: $STX_DIST
   GITREVCOUNT:
