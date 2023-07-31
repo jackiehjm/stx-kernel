@@ -28,7 +28,7 @@ WITH_MOD_SIGN ?= 1
 export DEB_BUILD_OPTIONS=noddebs
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
-kheaders_name=$(shell ls /usr/src | grep linux@KERNEL_TYPE@-headers | grep amd64)
+kheaders_name=$(shell ls /usr/src | grep linux@KERNEL_TYPE@-headers | grep @BUILD_ARCH@)
 export KERNEL_SOURCE_ROOT=/usr/src/$(kheaders_name)
 kernel_version=$(shell echo $(kheaders_name) | sed 's/linux@KERNEL_TYPE@-headers-//g')
 pkg_name=qat2.0.l@KERNEL_TYPE@
