@@ -2,7 +2,7 @@ Source: octeon-ep
 Section: net
 Priority: optional
 Maintainer: StarlingX Developers <starlingx-discuss@lists.starlingx.io>
-Build-Depends: debhelper-compat (= 13), linux@KERNEL_TYPE@-headers-stx-amd64, linux@KERNEL_TYPE@-keys
+Build-Depends: debhelper-compat (= 13), linux@KERNEL_TYPE@-headers-stx-@BUILD_ARCH@, linux@KERNEL_TYPE@-keys
 Standards-Version: 4.5.1
 Rules-Requires-Root: no
 
@@ -19,4 +19,4 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: This package provides the common files of the octeon_ep kernel modules.
  This package provides the config files files of the octeon_ep, octeon_ep_vf, oct_ep_phc
- kernel modules built for the Linux kernel-std and kernel-rt using the amd64 processors.
+ kernel modules built for the Linux kernel-std and kernel-rt using the @BUILD_ARCH@ processors.
