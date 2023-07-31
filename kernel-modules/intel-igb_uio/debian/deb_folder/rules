@@ -26,7 +26,7 @@
 
 WITH_MOD_SIGN ?= 1
 
-kheaders_name=$(shell ls /usr/src | grep linux@KERNEL_TYPE@-headers | grep amd64)
+kheaders_name=$(shell ls /usr/src | grep linux@KERNEL_TYPE@-headers | grep @BUILD_ARCH@)
 export KSRC=/usr/src/$(kheaders_name)
 export PWD = `pwd`
 kversion=$(shell echo $(kheaders_name) | sed 's/linux@KERNEL_TYPE@-headers-//g')
