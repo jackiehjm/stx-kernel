@@ -1,5 +1,4 @@
 kernel-std
-kernel-modules/bnxt_en
 kernel-modules/intel-i40e
 kernel-modules/intel-i40e-cvl-2.54
 kernel-modules/intel-i40e-cvl-4.10
