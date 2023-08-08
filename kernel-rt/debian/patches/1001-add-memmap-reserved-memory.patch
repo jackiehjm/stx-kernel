@@ -1,0 +1,169 @@
+From 03f41522acf850978707f2af8fff3ff07b329c48 Mon Sep 17 00:00:00 2001
+From: Jackie Huang <jackie.huang@windriver.com>
+Date: Tue, 8 Aug 2023 04:18:09 -0400
+Subject: [PATCH] add-memmap-reserved-memory
+
+Signed-off-by: Jackie Huang <jackie.huang@windriver.com>
+---
+ arch/arm64/include/asm/mmu.h | 10 +++++++
+ arch/arm64/kernel/setup.c    | 25 ++++++++++++++--
+ arch/arm64/mm/init.c         | 58 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 91 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/include/asm/mmu.h b/arch/arm64/include/asm/mmu.h
+index bc151b7d..d8aea177 100644
+--- a/arch/arm64/include/asm/mmu.h
++++ b/arch/arm64/include/asm/mmu.h
+@@ -29,6 +29,16 @@ typedef struct {
+ 	unsigned long	flags;
+ } mm_context_t;
+ 
++#define MAX_RES_REGIONS	32
++
++struct res_mem {
++	phys_addr_t base;
++	phys_addr_t size;
++};
++
++extern struct res_mem res_mem[MAX_RES_REGIONS];
++extern int res_mem_count;
++
+ /*
+  * We use atomic64_read() here because the ASID for an 'mm_struct' can
+  * be reallocated when scheduling one of its threads following a
+diff --git a/arch/arm64/kernel/setup.c b/arch/arm64/kernel/setup.c
+index eb4b2465..184be20f 100644
+--- a/arch/arm64/kernel/setup.c
++++ b/arch/arm64/kernel/setup.c
+@@ -50,6 +50,7 @@
+ #include <asm/efi.h>
+ #include <asm/xen/hypervisor.h>
+ #include <asm/mmu_context.h>
++#include <asm/mmu.h>
+ 
+ static int num_standard_resources;
+ static struct resource *standard_resources;
+@@ -202,8 +203,8 @@ static void __init setup_machine_fdt(phys_addr_t dt_phys)
+ static void __init request_standard_resources(void)
+ {
+ 	struct memblock_region *region;
+-	struct resource *res;
+-	unsigned long i = 0;
++	struct resource *res, *res_resources;
++	unsigned long i = 0, j, res_count;
+ 	size_t res_size;
+ 
+ 	kernel_code.start   = __pa_symbol(_text);
+@@ -217,6 +218,19 @@ static void __init request_standard_resources(void)
+ 	if (!standard_resources)
+ 		panic("%s: Failed to allocate %zu bytes\n", __func__, res_size);
+ 
++	res_size = res_mem_count * sizeof(struct resource);
++	res_resources = memblock_alloc(res_size, SMP_CACHE_BYTES);
++	if (!res_resources)
++		panic("%s: Failed to allocate %zu bytes\n", __func__, res_size);
++
++	for (res_count = 0; res_count < res_mem_count; res_count++) {
++		res_resources[res_count].name = "memmap reserved";
++		res_resources[res_count].flags = IORESOURCE_MEM;
++		res_resources[res_count].start = res_mem[res_count].base;
++		res_resources[res_count].end = res_resources[res_count].start +
++					       res_mem[res_count].size - 1;
++	}
++
+ 	for_each_mem_region(region) {
+ 		res = &standard_resources[i++];
+ 		if (memblock_is_nomap(region)) {
+@@ -243,6 +257,13 @@ static void __init request_standard_resources(void)
+ 		    crashk_res.end <= res->end)
+ 			request_resource(res, &crashk_res);
+ #endif
++
++	        for (j = 0; j < res_mem_count; j++) {
++		    if (res_resources[j].start >= res->start &&
++		        res_resources[j].end <= res->end)
++			    request_resource(res, &res_resources[j]);
++	        }
++
+ 	}
+ }
+ 
+diff --git a/arch/arm64/mm/init.c b/arch/arm64/mm/init.c
+index 80cc7976..cffb37ee 100644
+--- a/arch/arm64/mm/init.c
++++ b/arch/arm64/mm/init.c
+@@ -87,6 +87,9 @@ phys_addr_t __ro_after_init arm64_dma_phys_limit;
+ phys_addr_t __ro_after_init arm64_dma_phys_limit = PHYS_MASK + 1;
+ #endif
+ 
++struct res_mem res_mem[MAX_RES_REGIONS];
++int res_mem_count;
++
+ #ifdef CONFIG_KEXEC_CORE
+ /*
+  * reserve_crashkernel() - reserves memory for crash kernel
+@@ -320,6 +323,61 @@ static void __init fdt_enforce_memory_region(void)
+ 		memblock_cap_memory_range(reg.base, reg.size);
+ }
+ 
++static int __init parse_memmap_one(char *p)
++{
++	char *oldp;
++	phys_addr_t start_at, mem_size;
++	int ret;
++
++	if (!p)
++		return -EINVAL;
++
++	oldp = p;
++	mem_size = memparse(p, &p);
++	if (p == oldp)
++		return -EINVAL;
++
++	if (!mem_size)
++		return -EINVAL;
++
++	mem_size = PAGE_ALIGN(mem_size);
++
++	if (*p == '$') {
++		start_at = memparse(p+1, &p);
++		if (!IS_ALIGNED(start_at, SZ_2M)) {
++			pr_warn("cannot reserve memory: bad address is not 2MB aligned\n");
++			return -EINVAL;
++		}
++
++		ret = memblock_reserve(start_at, mem_size);
++		if (!ret) {
++			res_mem[res_mem_count].base = start_at;
++			res_mem[res_mem_count].size = mem_size;
++			res_mem_count++;
++		} else
++			pr_warn("memmap memblock_reserve failed.\n");
++	} else
++		pr_info("Unrecognized memmap option, please check the parameter.\n");
++
++	return *p == '\0' ? 0 : -EINVAL;
++}
++
++static int __init parse_memmap_opt(char *str)
++{
++	while (str) {
++		char *k = strchr(str, ',');
++
++		if (k)
++			*k++ = 0;
++
++		parse_memmap_one(str);
++		str = k;
++	}
++
++	return 0;
++}
++early_param("memmap", parse_memmap_opt);
++
+ void __init arm64_memblock_init(void)
+ {
+ 	const s64 linear_region_size = BIT(vabits_actual - 1);
+-- 
+2.30.2
+
