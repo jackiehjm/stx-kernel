@@ -66,6 +66,10 @@
 0068-perf-x86-rapl-Only-check-lower-32bits-for-RAPL-energ.patch
 0069-perf-x86-rapl-Fix-psys-energy-event-on-Intel-SPR-pla.patch
 0070-perf-x86-rapl-Use-standard-Energy-Unit-for-SPR-Dram-.patch
+0071-perf-core-Don-t-pass-task-around-when-ctx-sched-in.patch
+0072-perf-core-Use-perf_cgroup_info-active-to-check-if-cg.patch
+0073-perf-core-Fix-perf_cgroup_switch.patch
+0074-perf-core-Always-set-cpuctx-cgrp-when-enable-cgroup-.patch
 CVE/kernel180/0001-netfilter-nf_tables-deactivate-anonymous-set-from-pr.patch
 CVE/kernel180/0002-net-sched-sch_qfq-prevent-slab-out-of-bounds-in-qfq_.patch
 CVE/kernel180/0003-9p-xen-Fix-use-after-free-bug-in-xen_9pfs_front_remo.patch
@@ -73,3 +77,4 @@ CVE/kernel180/0004-ext4-avoid-a-potential-slab-out-of-bounds-in-ext4_gr.patch
 CVE/kernel180/0005-Revert-ext4-fix-use-after-free-in-ext4_xattr_set_ent.patch
 CVE/kernel180/0006-ext4-remove-duplicate-definition-of-ext4_xattr_ibody.patch
 CVE/kernel180/0007-ext4-fix-use-after-free-in-ext4_xattr_set_entry.patch
+

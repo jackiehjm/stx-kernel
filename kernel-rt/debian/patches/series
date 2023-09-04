@@ -75,6 +75,10 @@
 0077-debugobject-Prevent-init-race-with-static-objects.patch
 0078-debugobject-Ensure-pool-refill-again.patch
 0079-debugobjects-locking-Annotate-debug_object_fill_pool.patch
+0080-perf-core-Don-t-pass-task-around-when-ctx-sched-in.patch
+0081-perf-core-Use-perf_cgroup_info-active-to-check-if-cg.patch
+0082-perf-core-Fix-perf_cgroup_switch.patch
+0083-perf-core-Always-set-cpuctx-cgrp-when-enable-cgroup-.patch
 CVE/kernel180/0001-netfilter-nf_tables-deactivate-anonymous-set-from-pr.patch
 CVE/kernel180/0002-net-sched-sch_qfq-prevent-slab-out-of-bounds-in-qfq_.patch
 CVE/kernel180/0003-9p-xen-Fix-use-after-free-bug-in-xen_9pfs_front_remo.patch
