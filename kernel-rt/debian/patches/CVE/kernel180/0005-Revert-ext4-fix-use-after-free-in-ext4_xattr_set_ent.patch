@@ -1,0 +1,54 @@
+From 60a4147fda83dc869e370b5f977915f4043af604 Mon Sep 17 00:00:00 2001
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+Date: Wed, 19 Apr 2023 06:46:08 +0000
+Subject: [PATCH] Revert "ext4: fix use-after-free in ext4_xattr_set_entry"
+
+This reverts commit bb8592efcf8ef2f62947745d3182ea05b5256a15 which is
+commit 67d7d8ad99beccd9fe92d585b87f1760dc9018e3 upstream.
+
+The order in which patches are queued to stable matters. This patch
+has a logical dependency on commit 310c097c2bdbea253d6ee4e064f3e65580ef93ac
+upstream, and failing to queue the latter results in a null-ptr-deref
+reported at the Link below.
+
+In order to avoid conflicts on stable, revert the commit just so that we
+can queue its prerequisite patch first and then queue the same after.
+
+Link: https://syzkaller.appspot.com/bug?extid=d5ebf56f3b1268136afd
+Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit 9400206d9d5eebc0317da4151364ade32d28944f)
+Signed-off-by: Peng Zhang <Peng.Zhang2@windriver.com>
+---
+ fs/ext4/xattr.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
+index f3da1f2d4cb9..948da799abab 100644
+--- a/fs/ext4/xattr.c
++++ b/fs/ext4/xattr.c
+@@ -2193,9 +2193,8 @@ int ext4_xattr_ibody_find(struct inode *inode, struct ext4_xattr_info *i,
+ 	struct ext4_inode *raw_inode;
+ 	int error;
+ 
+-	if (!EXT4_INODE_HAS_XATTR_SPACE(inode))
++	if (EXT4_I(inode)->i_extra_isize == 0)
+ 		return 0;
+-
+ 	raw_inode = ext4_raw_inode(&is->iloc);
+ 	header = IHDR(inode, raw_inode);
+ 	is->s.base = is->s.first = IFIRST(header);
+@@ -2223,9 +2222,8 @@ int ext4_xattr_ibody_inline_set(handle_t *handle, struct inode *inode,
+ 	struct ext4_xattr_search *s = &is->s;
+ 	int error;
+ 
+-	if (!EXT4_INODE_HAS_XATTR_SPACE(inode))
++	if (EXT4_I(inode)->i_extra_isize == 0)
+ 		return -ENOSPC;
+-
+ 	error = ext4_xattr_set_entry(i, s, handle, inode, false /* is_block */);
+ 	if (error)
+ 		return error;
+-- 
+2.30.2
+
