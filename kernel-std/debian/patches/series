@@ -77,4 +77,13 @@ CVE/kernel180/0004-ext4-avoid-a-potential-slab-out-of-bounds-in-ext4_gr.patch
 CVE/kernel180/0005-Revert-ext4-fix-use-after-free-in-ext4_xattr_set_ent.patch
 CVE/kernel180/0006-ext4-remove-duplicate-definition-of-ext4_xattr_ibody.patch
 CVE/kernel180/0007-ext4-fix-use-after-free-in-ext4_xattr_set_entry.patch
+CVE/kernel185/0001-net-sched-cls_u32-Fix-reference-counter-leak-leading.patch
+CVE/kernel185/0002-ipvlan-Fix-out-of-bounds-caused-by-unclear-skb-cb.patch
+CVE/kernel185/0003-gfs2-Don-t-deref-jdesc-in-evict.patch
+CVE/kernel185/0004-net-sched-flower-fix-possible-OOB-write-in-fl_set_ge.patch
+CVE/kernel185/0005-memstick-r592-Fix-UAF-bug-in-r592_remove-due-to-race.patch
+CVE/kernel185/0006-xfs-verify-buffer-contents-when-we-skip-log-replay.patch
+CVE/kernel185/0007-Remove-DECnet-support-from-kernel.patch
+CVE/kernel185/0008-btrfs-check-return-value-of-btrfs_commit_transaction.patch
+CVE/kernel185/0009-btrfs-unset-reloc-control-if-transaction-commit-fail.patch
 
