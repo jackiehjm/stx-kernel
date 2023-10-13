@@ -1,0 +1,85 @@
+From bba7ebe10baf1d6d59c9a11c3cdc8bd2bc1b1028 Mon Sep 17 00:00:00 2001
+From: wenxu <wenxu@ucloud.cn>
+Date: Tue, 16 May 2023 22:00:38 +0300
+Subject: [PATCH] net/sched: act_mirred: refactor the handle of xmit
+
+[ Upstream commit fa6d639930ee5cd3f932cc314f3407f07a06582d ]
+
+This one is prepare for the next patch.
+
+Signed-off-by: wenxu <wenxu@ucloud.cn>
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[DP: adjusted context for linux-5.10.y]
+Signed-off-by: Dragos-Marian Panait <dragos.panait@windriver.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit bba7ebe10baf1d6d59c9a11c3cdc8bd2bc1b1028)
+Signed-off-by: Peng Zhang <Peng.Zhang2@windriver.com>
+---
+ include/net/sch_generic.h |  5 -----
+ net/sched/act_mirred.c    | 21 +++++++++++++++------
+ 2 files changed, 15 insertions(+), 11 deletions(-)
+
+diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
+index 61cd19ee51f4..a62677be7452 100644
+--- a/include/net/sch_generic.h
++++ b/include/net/sch_generic.h
+@@ -1320,11 +1320,6 @@ void mini_qdisc_pair_init(struct mini_Qdisc_pair *miniqp, struct Qdisc *qdisc,
+ void mini_qdisc_pair_block_init(struct mini_Qdisc_pair *miniqp,
+ 				struct tcf_block *block);
+ 
+-static inline int skb_tc_reinsert(struct sk_buff *skb, struct tcf_result *res)
+-{
+-	return res->ingress ? netif_receive_skb(skb) : dev_queue_xmit(skb);
+-}
+-
+ /* Make sure qdisc is no longer in SCHED state. */
+ static inline void qdisc_synchronize(const struct Qdisc *q)
+ {
+diff --git a/net/sched/act_mirred.c b/net/sched/act_mirred.c
+index 25dad1921baf..745ce36ffe5b 100644
+--- a/net/sched/act_mirred.c
++++ b/net/sched/act_mirred.c
+@@ -206,6 +206,18 @@ static int tcf_mirred_init(struct net *net, struct nlattr *nla,
+ 	return err;
+ }
+ 
++static int tcf_mirred_forward(bool want_ingress, struct sk_buff *skb)
++{
++	int err;
++
++	if (!want_ingress)
++		err = dev_queue_xmit(skb);
++	else
++		err = netif_receive_skb(skb);
++
++	return err;
++}
++
+ static int tcf_mirred_act(struct sk_buff *skb, const struct tc_action *a,
+ 			  struct tcf_result *res)
+ {
+@@ -295,18 +307,15 @@ static int tcf_mirred_act(struct sk_buff *skb, const struct tc_action *a,
+ 		/* let's the caller reinsert the packet, if possible */
+ 		if (use_reinsert) {
+ 			res->ingress = want_ingress;
+-			if (skb_tc_reinsert(skb, res))
++			err = tcf_mirred_forward(res->ingress, skb);
++			if (err)
+ 				tcf_action_inc_overlimit_qstats(&m->common);
+ 			__this_cpu_dec(mirred_rec_level);
+ 			return TC_ACT_CONSUMED;
+ 		}
+ 	}
+ 
+-	if (!want_ingress)
+-		err = dev_queue_xmit(skb2);
+-	else
+-		err = netif_receive_skb(skb2);
+-
++	err = tcf_mirred_forward(want_ingress, skb2);
+ 	if (err) {
+ out:
+ 		tcf_action_inc_overlimit_qstats(&m->common);
+-- 
+2.25.1
+
