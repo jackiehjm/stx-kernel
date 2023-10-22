@@ -152,3 +152,14 @@ CVE/kernel190/0033-x86-cpu-Add-VM-page-flush-MSR-availablility-as-a-CPU.patch
 CVE/kernel190/0034-x86-cpufeatures-Assign-dedicated-feature-word-for-CP.patch
 CVE/kernel190/0035-x86-bugs-Increase-the-x86-bugs-vector-size-to-two-u3.patch
 CVE/kernel190/0036-x86-cpu-kvm-Add-support-for-CPUID_80000021_EAX.patch
+CVE/kernel192/0001-io_uring-ensure-IOPOLL-locks-around-deferred-work.patch
+CVE/kernel192/0002-media-dvb-core-Fix-use-after-free-due-on-race-condit.patch
+CVE/kernel192/0003-media-ttusb-dec-fix-memory-leak-in-ttusb_dec_exit_dv.patch
+CVE/kernel192/0004-net-sched-cls_fw-No-longer-copy-tcf_result-on-update.patch
+CVE/kernel192/0005-net-sched-cls_route-No-longer-copy-tcf_result-on-upd.patch
+CVE/kernel192/0006-netfilter-nf_tables-skip-bound-chain-on-rule-flush.patch
+CVE/kernel192/0007-netfilter-nf_tables-add-NFT_TRANS_PREPARE_ERROR-to-d.patch
+CVE/kernel192/0008-netfilter-nf_tables-skip-immediate-deactivate-in-_PR.patch
+CVE/kernel192/0009-xfrm-add-NULL-check-in-xfrm_update_ae_params.patch
+CVE/kernel192/0010-xfrm-add-forgotten-nla_policy-for-XFRMA_MTIMER_THRES.patch
+CVE/kernel192/0011-media-dvb-core-Fix-use-after-free-due-to-race-condit.patch
