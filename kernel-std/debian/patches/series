@@ -73,6 +73,7 @@
 0075-kexec-move-locking-into-do_kexec_load.patch
 0076-kexec-turn-all-kexec_mutex-acquisitions-into-trylock.patch
 0077-panic-kexec-make-__crash_kexec-NMI-safe.patch
+0078-Add-the-pci-reboot-quirk-in-DMI-table-for-Dell-Power.patch
 CVE/kernel180/0001-netfilter-nf_tables-deactivate-anonymous-set-from-pr.patch
 CVE/kernel180/0002-net-sched-sch_qfq-prevent-slab-out-of-bounds-in-qfq_.patch
 CVE/kernel180/0003-9p-xen-Fix-use-after-free-bug-in-xen_9pfs_front_remo.patch
