@@ -1,0 +1,38 @@
+From a1b26dac8bc6b1a8814594010f8808e0debc3dc1 Mon Sep 17 00:00:00 2001
+From: Dinghao Liu <dinghao.liu@zju.edu.cn>
+Date: Mon, 12 Jun 2023 16:39:05 +0300
+Subject: [PATCH] media: dvbdev: Fix memleak in dvb_register_device
+
+commit 167faadfcf9339088910e9e85a1b711fcbbef8e9 upstream.
+
+When device_create() fails, dvbdev and dvbdevfops should
+be freed just like when dvb_register_media_device() fails.
+
+Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
+Signed-off-by: Sean Young <sean@mess.org>
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Signed-off-by: Ovidiu Panait <ovidiu.panait@windriver.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit a1b26dac8bc6b1a8814594010f8808e0debc3dc1)
+Signed-off-by: Peng Zhang <Peng.Zhang2@windriver.com>
+---
+ drivers/media/dvb-core/dvbdev.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index fea2d82300b0..52315434e0a9 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -545,6 +545,9 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 	if (IS_ERR(clsdev)) {
+ 		pr_err("%s: failed to create device dvb%d.%s%d (%ld)\n",
+ 		       __func__, adap->num, dnames[type], id, PTR_ERR(clsdev));
++		dvb_media_device_free(dvbdev);
++		kfree(dvbdevfops);
++		kfree(dvbdev);
+ 		return PTR_ERR(clsdev);
+ 	}
+ 	dprintk("DVB: register adapter%d/%s%d @ minor: %i (0x%02x)\n",
+-- 
+2.34.1
+
