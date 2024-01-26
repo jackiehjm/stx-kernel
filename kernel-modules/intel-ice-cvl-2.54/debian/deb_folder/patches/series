@@ -2,3 +2,4 @@
 0002-ice_main-ice_lib-Use-irq_update_affinity_hint.patch
 0003-ddp-change-ddp-file-name-for-legacy-driver.patch
 0004-Disable-irq_msix_misc-before-ptp-release.patch
+0005-limit-the-hw-timestamp-for-x86-only.patch
