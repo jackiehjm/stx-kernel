@@ -1,0 +1,33 @@
+From 36f42b9a661ac673e3d6b742576283cd2d9abcaa Mon Sep 17 00:00:00 2001
+From: Jackie Huang <jackie.huang@windriver.com>
+Date: Mon, 22 Jan 2024 04:06:33 -0500
+Subject: [PATCH] limit the hw timestamp for x86 only
+
+It failed to build due to missing hw timestamp support on Arm platform,
+So limit the configuration macro for x86 only.
+
+This is backported from ice 1.13.7
+
+Signed-off-by: Tianyu Li <tianyu.li@arm.com>
+Signed-off-by: Jackie Huang <jackie.huang@windriver.com>
+---
+ src/kcompat.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/kcompat.h b/src/kcompat.h
+index 469094f..eff5162 100644
+--- a/src/kcompat.h
++++ b/src/kcompat.h
+@@ -2273,7 +2273,9 @@ int _kc_kstrtobool(const char *s, bool *res);
+ #else /* >= 4.6.0 */
+ #define HAVE_PAGE_COUNT_BULK_UPDATE
+ #define HAVE_ETHTOOL_FLOW_UNION_IP6_SPEC
++#ifdef CONFIG_X86
+ #define HAVE_PTP_CROSSTIMESTAMP
++#endif
+ #define HAVE_TC_SETUP_CLSFLOWER
+ #define HAVE_TC_SETUP_CLSU32
+ #endif /* 4.6.0 */
+-- 
+2.30.2
+
