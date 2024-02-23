@@ -209,3 +209,17 @@ CVE/kernel205/0014-x86-sev-Disable-MMIO-emulation-from-user-mode.patch
 CVE/kernel205/0015-x86-sev-Check-for-user-space-IOIO-pointing-to-kernel.patch
 CVE/kernel205/0016-nvmet-tcp-Fix-a-possible-UAF-in-queue-intialization-.patch
 CVE/kernel205/0017-perf-Disallow-mis-matched-inherited-group-reads.patch
+CVE/kernel205/0018-netfilter-nft_exthdr-break-evaluation-if-setting-TCP.patch
+CVE/kernel205/0019-netfilter-exthdr-add-support-for-tcp-option-removal.patch
+CVE/kernel205/0020-netfilter-nft_exthdr-Fix-non-linear-header-modificat.patch
+CVE/kernel205/0021-io_uring-fdinfo-lock-SQ-thread-while-retrieving-thre.patch
+CVE/kernel205/0022-ipv4-igmp-fix-refcnt-uaf-issue-when-receiving-igmp-q.patch
+CVE/kernel205/0023-netfilter-nft_set_pipapo-skip-inactive-elements-duri.patch
+CVE/kernel205/0024-nvmet-remove-unnecessary-ctrl-parameter.patch
+CVE/kernel205/0025-nvmet-nul-terminate-the-NQNs-passed-in-the-connect-c.patch
+CVE/kernel205/0026-perf-core-Add-a-new-read-format-to-get-a-number-of-l.patch
+CVE/kernel205/0027-perf-Fix-perf_event_validate_size.patch
+CVE/kernel205/0028-io_uring-af_unix-disable-sending-io_uring-over-socke.patch
+CVE/kernel205/0029-atm-Fix-Use-After-Free-in-do_vcc_ioctl.patch
+CVE/kernel205/0030-appletalk-Fix-Use-After-Free-in-atalk_ioctl.patch
+CVE/kernel205/0031-net-rose-Fix-Use-After-Free-in-rose_ioctl.patch
