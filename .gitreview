@@ -2,4 +2,4 @@
 host=ala-codereviewti-prod.wrs.com
 port=29418
 project=cgcs/opendev.org.starlingx.kernel
-defaultbranch=WRCP_22.12_PATCHING
+defaultbranch=WRCP_22.12_MR2PLUS_PRESTAGING
