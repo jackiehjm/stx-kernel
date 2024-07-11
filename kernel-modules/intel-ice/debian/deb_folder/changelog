@@ -1,3 +1,9 @@
+ice (1.13.7-1) unstable; urgency=medium
+
+  * Update ICE driver to 1.13.7 to align with NVM 4.40.
+
+ -- Jackie Huang <jackie.huang@windriver.com>  Fri, 12 Jul 2024 15:55:05 +0800
+
 ice (1.9.11-1) unstable; urgency=medium
 
   * Update ICE driver to 1.9.11 to support the Intel Logan Beach NIC
