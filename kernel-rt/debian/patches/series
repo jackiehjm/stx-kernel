@@ -232,3 +232,4 @@ CVE/kernel205/0028-io_uring-af_unix-disable-sending-io_uring-over-socke.patch
 CVE/kernel205/0029-atm-Fix-Use-After-Free-in-do_vcc_ioctl.patch
 CVE/kernel205/0030-appletalk-Fix-Use-After-Free-in-atalk_ioctl.patch
 CVE/kernel205/0031-net-rose-Fix-Use-After-Free-in-rose_ioctl.patch
+0001-workaround-for-__put_task_struct-calling.patch

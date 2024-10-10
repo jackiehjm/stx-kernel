@@ -1,0 +1,37 @@
+From 4160203ec9ee5596970811e19268554d82d9e406 Mon Sep 17 00:00:00 2001
+From: Jiping Ma <jiping.ma2@windriver.com>
+Date: Tue, 8 Oct 2024 06:48:53 -0700
+Subject: [PATCH] workaround for __put_task_struct() calling
+
+---
+ kernel/locking/rtmutex.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
+index b41559114747..51167555ad84 100644
+--- a/kernel/locking/rtmutex.c
++++ b/kernel/locking/rtmutex.c
+@@ -525,7 +525,9 @@ static int rt_mutex_adjust_prio_chain(struct task_struct *task,
+ 			       "task: %s (%d)\n", max_lock_depth,
+ 			       top_task->comm, task_pid_nr(top_task));
+ 		}
++		preempt_disable();
+ 		put_task_struct(task);
++		preempt_enable();
+ 
+ 		return -EDEADLK;
+ 	}
+@@ -831,7 +833,10 @@ static int rt_mutex_adjust_prio_chain(struct task_struct *task,
+  out_unlock_pi:
+ 	raw_spin_unlock_irq(&task->pi_lock);
+  out_put_task:
++	preempt_disable();
+ 	put_task_struct(task);
++	preempt_enable();
++
+ 
+ 	return ret;
+ }
+-- 
+2.42.0
+
