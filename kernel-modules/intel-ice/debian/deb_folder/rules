@@ -62,7 +62,7 @@ override_dh_auto_install:
 	install -m644 ice_comms/ice_comms*.pkg debian/$(pkg_common_name)/lib/firmware/updates/intel/ice/ddp/
 	# Make the regular DDP fw be the default one to load
 	dh_installdirs -p$(pkg_common_name) /lib/firmware/intel/ice/ddp/
-	ln -frs debian/$(pkg_common_name)/lib/firmware/updates/intel/ice/ddp/ice-*.pkg debian/$(pkg_common_name)/lib/firmware/intel/ice/ddp/stx-ice.pkg
+	ln -frs debian/$(pkg_common_name)/lib/firmware/updates/intel/ice/ddp/ice_comms-*.pkg debian/$(pkg_common_name)/lib/firmware/intel/ice/ddp/stx-ice.pkg
 
 override_dh_strip:
 	dh_strip
@@ -74,6 +74,6 @@ ifeq ($(WITH_MOD_SIGN),1)
 endif
 
 override_dh_auto_build:
-	unzip -d ddp_comms 800-Series-DDP-Comms-Package-*.zip
+	unzip -d ddp_comms 738693_ice_comms-*.zip
 	unzip -d ice_comms ddp_comms/ice_comms*.zip
 	dh_auto_build -D ./src
