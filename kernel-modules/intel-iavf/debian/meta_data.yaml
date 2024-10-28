@@ -1,12 +1,10 @@
 ---
-debver: 4.5.3.2
+debver: 4.12.5
 debname: iavf
 dl_path:
-  name: iavf-4.5.3.2.tar.gz
-  url: "https://sourceforge.net/projects/e1000/files/\
-    unsupported/iavf%20unsupported/iavf-4.5.3.2.tar.gz/download"
-  md5sum: ef727e73f28341266ae9c4c277ce9f39
-  sha256sum: f29af75b064ccf4b1b04dd67e8ebcbb09e13960c0cdf358308a79072aaf39e8e
+  name: iavf-4.12.5.tar.gz
+  url: "https://github.com/intel/ethernet-linux-iavf/releases/download/v4.12.5/iavf-4.12.5.tar.gz"
+  sha256sum: f1e3ec7a67e8de1db2a3d222ab2c3466d2ab635b85b787a506e5385f68bb844e
 revision:
   dist: $STX_DIST
   GITREVCOUNT:
